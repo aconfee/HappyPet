@@ -1,0 +1,27 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+
+
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'HappyPetConnection'
+    subscriptionId: '30aec3bd-dd23-4f27-babd-1cf3e611291c'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'HappyPet'
+    location: 'Central US'
+    templateLocation: 'Linked artifact'
+    csmFile: 'Deploy/template.json'
+    csmParametersFile: 'Deploy/parameters.json'
+    deploymentMode: 'Incremental'
+    deploymentName: 'HappyPet'
