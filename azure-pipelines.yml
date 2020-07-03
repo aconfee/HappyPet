@@ -30,13 +30,14 @@ steps:
   inputs:
     command: 'build'
     projects: '**/*.csproj'
+    arguments: '--output build_output'
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.BinariesDirectory)'
-    includeRootFolder: true
+    rootFolderOrFile: 'build_output/'
+    includeRootFolder: false
     archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)_HappyPet.zip'
     replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
