@@ -25,3 +25,23 @@ steps:
     csmParametersFile: 'Deploy/parameters.json'
     deploymentMode: 'Incremental'
     deploymentName: 'HappyPet'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--output build_output'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: 'build_output/'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)_HappyPet.zip'
+    replaceExistingArchive: true
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
