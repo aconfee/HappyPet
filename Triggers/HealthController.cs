@@ -10,7 +10,7 @@ namespace HappyPet
     public static class HealthController
     {
         // TODO: Change AuthorizationLevel
-        // 
+        // Update to check DB health.
         [FunctionName("Health")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest request,
